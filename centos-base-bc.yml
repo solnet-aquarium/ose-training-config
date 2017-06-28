@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+    name: centos-base
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: centos-base:latest
+  resources:
+    limits:
+      cpu: 500m
+      memory: 2Gi
+    requests:
+      cpu: 500m
+      memory: 2Gi
+  source:
+    type: Git
+    contextDir: /
+    git:
+      ref: master
+      uri: >-
+        ssh://git@bitbucket.solnet.co.nz:7999/ot/centos-base.git
+    sourceSecret:
+      name: solnet-acc-deployment-key
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: .
+  triggers:
+  - type: Generic
+    generic: 
+      secret: 60da9e4a-5ce2-481c-b7f3-27e9afe32db6
+status:
+  lastVersion: 0 

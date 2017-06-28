@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+    name: springboot-mvn-s2i
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: springboot-mvn-s2i:latest
+  resources:
+    limits:
+      cpu: 500m
+      memory: 2Gi
+    requests:
+      cpu: 500m
+      memory: 2Gi
+  source:
+    contextDir: /
+    git:
+      ref: master
+      uri: ssh://git@bitbucket.solnet.co.nz:7999/ot/springboot-mvn-s2i.git
+    sourceSecret:
+      name: solnet-acc-deployment-key
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: springboot-mvn-s2i:latest
+        namespace: solnet-acc
+      incremental: true
+    type: Source
+  triggers:
+  - type: Generic
+    generic: 
+      secret: 60da9e4a-5ce2-481c-b7f3-27e9afe32db6
+status:
+  lastVersion: 0 

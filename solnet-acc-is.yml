@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ImageStream
+metadata:
+  annotations:
+    description: Keeps track of changes in the application ImageStream
+  name: springboot-mvn-s2i
+spec:
+  tags:
+  - annotations: null
+    from:
+      kind: DockerImage
+      name: springboot-mvn-s2i:ppte
+    generation: null
+    importPolicy: {}
+    name: ppte
+  - annotations: null
+    from:
+      kind: DockerImage
+      name: springboot-mvn-s2i:prod
+    generation: null
+    importPolicy: {}
+    name: prod
+status:
+  dockerImageRepository: ""
